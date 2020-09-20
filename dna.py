@@ -20,18 +20,24 @@ def main():
     # a dict to store keys and values and will be updated with STRs
     counts = {}
     for k in keys:
-        counts[k] = ""
-    # updating the STRs
+        counts[k] = 1
+    # updating the STRs by iteratign through the keys 
     for k in keys:
+        # ingore name
         if k != "name":
+            lenK = len(k)
+            temp = 0
             count = 0
             for i in range(len(seq)):
-                for j in range(i + len(str(k)), len(seq), len(str(k))):
-                    sub_len = len(seq[i:j]) // len(str(k))
-                    subStr = str(str(k) * sub_len)
-                    if seq[i:j] == subStr and sub_len > count:
-                        count = sub_len
-                    counts[k] = count
+                # temp to 0 to a void counting again and again
+                temp = 0
+                if seq[i:i + lenK] == k:
+                    while seq[i - lenK:i] == seq[i: i + lenK]:
+                        temp += 1
+                        i += lenK
+                if temp > count:
+                    count = temp
+            counts[k] += count
     # finding a match
     counts["name"] = "no match"
     match = 0
@@ -43,6 +49,7 @@ def main():
                 match = 0
         if match == len(keys) - 1:
             counts["name"] = p["name"]
+            break
 
     print(counts["name"])
 
