@@ -30,10 +30,7 @@ def main():
             count = 0
             i = 0
             while i < len(seq) - lenK:
-                str = ""
-                for j in range(i,lenK + i):
-                    str += seq[j]
-                if str == k:
+                if seq[i : lenK + i] == k:
                     temp += 1
                     i += lenK
                 else:
