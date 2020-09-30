@@ -21,23 +21,27 @@ def main():
     counts = {}
     for k in keys:
         counts[k] = 1
-    # updating the STRs by iteratign through the keys 
+    # updating the STRs by iteratign through the keys
     for k in keys:
         # ingore name
         if k != "name":
             lenK = len(k)
             temp = 0
             count = 0
-            for i in range(len(seq)):
-                # temp to 0 to a void counting again and again
-                temp = 0
-                if seq[i:i + lenK] == k:
-                    while seq[i - lenK:i] == seq[i: i + lenK]:
-                        temp += 1
-                        i += lenK
+            i = 0
+            while i < len(seq) - lenK:
+                str = ""
+                for j in range(i,lenK + i):
+                    str += seq[j]
+                if str == k:
+                    temp += 1
+                    i += lenK
+                else:
+                    temp = 0
+                    i += 1
                 if temp > count:
                     count = temp
-            counts[k] += count
+            counts[k] = count
     # finding a match
     counts["name"] = "no match"
     match = 0
